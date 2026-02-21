@@ -16,6 +16,7 @@ import cv2
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+from mediapipe.framework.formats import landmark_pb2
 
 # MediaPipe Hands gives 21 landmarks per hand, each with x, y, z
 NUM_LANDMARKS = 21
@@ -56,13 +57,23 @@ def extract_hand_features(hand_landmarks):
     return features
 
 
+TARGET_FRAMES = 20
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="ASL hand pose data collection")
+    parser.add_argument(
+        "--type", "-t",
+        type=str,
+        choices=["letter", "word"],
+        default="letter",
+        help="Type of data to collect (determines whether to save to letter or word dataset).",
+    )
     parser.add_argument(
         "--phrase", "-p",
         type=str,
         default=None,
-        help="Label for recordings (e.g. 'hello', 'thank you'). Press Space to record. Omit for letter mode (a-z).",
+        help="Label for recordings (e.g. 'hello', 'thank you'). Press Space to record.",
     )
     return parser.parse_args()
 
@@ -72,14 +83,23 @@ def main():
     phrase_label = args.phrase
 
     # If no phrase from CLI, prompt for optional phrase/word
-    if phrase_label is None:
-        user_input = input("Enter label (letter or phrase, or press Enter for letter mode): ").strip()
-        phrase_label = user_input if user_input else None
-
     # Create data directory
     data_dir = Path(__file__).parent / "data"
     data_dir.mkdir(exist_ok=True)
-    csv_path = data_dir / "asl_data.csv"
+    
+    # Save to the correct CSV file depending on the type mode
+    if args.type == "word":
+        csv_path = data_dir / "wlasl_data_naive.csv"
+        # Always prompt for a phrase label if we are in word mode and phrase wasn't explicitly provided via CLI
+        if phrase_label is None:
+            user_input = input("Enter Word/Phrase Label: ").strip()
+            phrase_label = user_input if user_input else "unknown_word"
+    else:
+        csv_path = data_dir / "asl_data_auto.csv"
+        # If no phrase from CLI and we are in letter mode, ask user
+        if phrase_label is None:
+            user_input = input("Enter custom Label/Phrase (or press Enter for standard a-z Letter mode): ").strip()
+            phrase_label = user_input if user_input else None
 
     # Initialize MediaPipe HandLandmarker (Tasks API)
     model_path = get_model_path()
@@ -94,10 +114,9 @@ def main():
     )
     detector = vision.HandLandmarker.create_from_options(options)
 
-    # Drawing utilities
-    mp_drawing = mp.tasks.vision.drawing_utils
-    mp_drawing_styles = mp.tasks.vision.drawing_styles
-    hand_connections = mp.tasks.vision.HandLandmarksConnections.HAND_CONNECTIONS
+    from mediapipe.python.solutions import drawing_utils as mp_drawing
+    from mediapipe.python.solutions import drawing_styles as mp_drawing_styles
+    from mediapipe.python.solutions import hands as mp_hands
 
     # Initialize webcam
     cap = cv2.VideoCapture(0)
@@ -113,10 +132,10 @@ def main():
     print("ASL Data Collection")
     print("=" * 50)
     if phrase_label:
-        print(f"Phrase mode: label = '{phrase_label}'")
+        print(f"{args.type.capitalize()} mode: label = '{phrase_label}'")
         print("Press SPACE to record | 'q' to quit")
     else:
-        print("Letter mode: Press a letter key (a-z) to record hand pose")
+        print(f"Letter mode: Press a letter key (a-z) to record hand pose")
         print("Press 'q' to quit")
     print("=" * 50)
 
@@ -124,7 +143,14 @@ def main():
     with open(csv_path, "a", newline="") as f:
         writer = csv.writer(f)
         if not file_exists:
-            writer.writerow(columns)
+            # For letters, write 63 headers. For words, write 1260 headers.
+            if args.type == "word":
+                columns = []
+                for i in range(TARGET_FRAMES):
+                    columns.extend([f"f{i}_x{j}" for j in range(21)])
+                    columns.extend([f"f{i}_y{j}" for j in range(21)])
+                    columns.extend([f"f{i}_z{j}" for j in range(21)])
+            writer.writerow(["label"] + columns)
 
         while True:
             ret, frame = cap.read()
@@ -146,16 +172,33 @@ def main():
             # Draw hand landmarks if detected
             if detection_result.hand_landmarks:
                 for hand_landmarks in detection_result.hand_landmarks:
+                    # Convert to legacy protobuf format for drawing_utils
+                    proto_landmarks = landmark_pb2.NormalizedLandmarkList()
+                    proto_landmarks.landmark.extend([
+                        landmark_pb2.NormalizedLandmark(x=lm.x, y=lm.y, z=lm.z)
+                        for lm in hand_landmarks
+                    ])
+                    
                     mp_drawing.draw_landmarks(
                         frame,
-                        hand_landmarks,
-                        hand_connections,
+                        proto_landmarks,
+                        mp_hands.HAND_CONNECTIONS,
                         mp_drawing_styles.get_default_hand_landmarks_style(),
                         mp_drawing_styles.get_default_hand_connections_style(),
                     )
 
             # Show instructions on frame
-            if phrase_label:
+            if recording_sequence:
+                cv2.putText(
+                    frame,
+                    f"Recording {frames_recorded}/{TARGET_FRAMES}...",
+                    (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.6,
+                    (0, 0, 255),
+                    2,
+                )
+            elif phrase_label:
                 cv2.putText(
                     frame,
                     f"Label: '{phrase_label}' | SPACE to record | q to quit",
@@ -168,7 +211,7 @@ def main():
             else:
                 cv2.putText(
                     frame,
-                    "Press letter (a-z) to record | q to quit",
+                    f"Press letter (a-z) to record | q to quit",
                     (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.6,
@@ -182,24 +225,49 @@ def main():
             if key == ord("q"):
                 break
 
-            # Determine label and whether to record
-            record_label = None
-            if phrase_label:
-                if key == ord(" "):  # Space bar
-                    record_label = phrase_label
-            else:
-                if 97 <= key <= 122:  # a-z
-                    record_label = chr(key)
-
-            if record_label is not None:
+            # Handle sequence recording mechanism
+            if recording_sequence:
                 if detection_result.hand_landmarks:
                     features = extract_hand_features(detection_result.hand_landmarks[0])
-                    row = [record_label] + features
-                    writer.writerow(row)
-                    f.flush()
-                    print(f"Recorded: {record_label}")
+                    word_features.extend(features)
                 else:
-                    print("No hand detected - try again when hand is visible")
+                    # Append zeros if track lost
+                    word_features.extend([0.0] * 63)
+                
+                frames_recorded += 1
+                if frames_recorded >= TARGET_FRAMES:
+                    writer.writerow([phrase_label] + word_features)
+                    f.flush()
+                    print(f"✅ Saved sequence for '{phrase_label}'")
+                    recording_sequence = False
+                    frames_recorded = 0
+                    word_features = []
+
+            # Determine whether to trigger a new capture
+            else:
+                record_label = None
+                if phrase_label:
+                    if key == ord(" "):  # Space bar
+                        print(f"Started recording sequence for '{phrase_label}'...")
+                        recording_sequence = True
+                        frames_recorded = 0
+                        word_features = []
+                else:
+                    if 97 <= key <= 122:  # a-z
+                        record_label = chr(key)
+                        if detection_result.hand_landmarks:
+                            features = extract_hand_features(detection_result.hand_landmarks[0])
+                            row = [record_label] + features
+                            writer.writerow(row)
+                            f.flush()
+                            print(f"Recorded: {record_label}")
+                            
+                            # flash visual feedback
+                            flash = np.ones(frame.shape, dtype=np.uint8) * 255
+                            cv2.imshow("ASL Data Collection", flash)
+                            cv2.waitKey(50)
+                        else:
+                            print("No hand detected - try again when hand is visible")
 
     cap.release()
     cv2.destroyAllWindows()

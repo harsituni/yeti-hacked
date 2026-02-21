@@ -107,9 +107,9 @@ def main():
     detector = vision.HandLandmarker.create_from_options(options)
 
     # Drawing utilities
-    mp_drawing = mp.tasks.vision.drawing_utils
-    mp_drawing_styles = mp.tasks.vision.drawing_styles
-    hand_connections = mp.tasks.vision.HandLandmarksConnections.HAND_CONNECTIONS
+    mp_drawing = mp.solutions.drawing_utils
+    mp_drawing_styles = mp.solutions.drawing_styles
+    hand_connections = mp.solutions.hands.HAND_CONNECTIONS
 
     # TTS
     tts_engine = None
@@ -173,12 +173,23 @@ def main():
             detection_result = detector.detect_for_video(mp_image, frame_timestamp_ms)
             frame_count += 1
 
-            # Draw hand landmarks
             if detection_result.hand_landmarks:
+                # The tasks API returns a list of NormalizedLandmark lists, one per hand.
+                # mp_drawing expects a NormalizedLandmarkList message.
+                from mediapipe.framework.formats import landmark_pb2
+                
                 for hand_landmarks in detection_result.hand_landmarks:
+                    # Convert the list of python objects back to the proto message format
+                    # that the legacy drawing solution expects
+                    proto_landmarks = landmark_pb2.NormalizedLandmarkList()
+                    proto_landmarks.landmark.extend([
+                        landmark_pb2.NormalizedLandmark(x=lm.x, y=lm.y, z=lm.z) 
+                        for lm in hand_landmarks
+                    ])
+                    
                     mp_drawing.draw_landmarks(
                         frame,
-                        hand_landmarks,
+                        proto_landmarks,
                         hand_connections,
                         mp_drawing_styles.get_default_hand_landmarks_style(),
                         mp_drawing_styles.get_default_hand_connections_style(),
