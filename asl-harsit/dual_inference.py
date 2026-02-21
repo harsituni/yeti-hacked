@@ -42,10 +42,27 @@ def get_hand_model_path():
 
 
 def extract_hand_features(hand_landmarks):
-    """Flatten hand landmarks to a list of 63 values (21 * x,y,z)."""
+    """Flatten hand landmarks to a list of 63 scale-invariant values."""
     features = []
+    wrist_x = hand_landmarks[0].x
+    wrist_y = hand_landmarks[0].y
+    wrist_z = hand_landmarks[0].z
+    
+    max_dist = 0.0
     for lm in hand_landmarks:
-        features.extend([lm.x, lm.y, lm.z])
+        dist = ((lm.x - wrist_x)**2 + (lm.y - wrist_y)**2)**0.5
+        if dist > max_dist:
+            max_dist = dist
+            
+    if max_dist == 0:
+        max_dist = 1.0
+
+    for lm in hand_landmarks:
+        features.extend([
+            (lm.x - wrist_x) / max_dist, 
+            (lm.y - wrist_y) / max_dist, 
+            (lm.z - wrist_z) / max_dist
+        ])
     return features
 
 
