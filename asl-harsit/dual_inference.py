@@ -211,11 +211,11 @@ def main():
                 
                 # Word Prediction Pipeline (Dynamic - 20 frames)
                 if len(frame_buffer) == sequence_length:
-                    # Flatten the 20x63 buffer to scale it (since scaler expects 2D)
-                    flat_sequence = np.array(frame_buffer).flatten().reshape(1, -1)
-                    w_features_flat = word_scaler.transform(flat_sequence)
-                    # Reshape back to 3D for LSTM: (1 sample, 20 timesteps, 63 features)
-                    w_features = w_features_flat.reshape(1, sequence_length, FEATURES_PER_HAND)
+                    # The scaler expects 63 features per row. Scaler transforms the (20, 63) array.
+                    sequence_array = np.array(frame_buffer)
+                    w_features_scaled = word_scaler.transform(sequence_array)
+                    # Reshape to 3D for LSTM: (1 sample, 20 timesteps, 63 features)
+                    w_features = w_features_scaled.reshape(1, sequence_length, FEATURES_PER_HAND)
                     
                     w_preds = word_model.predict(w_features, verbose=0)[0]
                     w_idx = np.argmax(w_preds)
