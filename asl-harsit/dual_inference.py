@@ -13,6 +13,7 @@ import urllib.request
 from pathlib import Path
 
 import collections
+import subprocess
 import cv2
 import joblib
 import mediapipe as mp
@@ -129,35 +130,20 @@ def main():
     from mediapipe.python.solutions import hands as mp_hands
     hand_connections = mp_hands.HAND_CONNECTIONS
 
-    # TTS Setup
-    tts_engine = None
-    if not args.no_tts:
-        try:
-            import pyttsx3
-            tts_engine = pyttsx3.init()
-            tts_engine.setProperty("rate", 120)
-            print("Text-to-speech enabled.")
-        except Exception as e:
-            print(f"TTS unavailable ({e}). Run with --no-tts to suppress.")
-            
-    # TTS debouncing logic
+    # TTS Setup 
+    # (macOS uses native 'say' in isolated subprocesses to avoid thread deadlocks)
+    use_tts = not args.no_tts
+    if use_tts:
+        print("Text-to-speech enabled (via macOS native 'say').")
+        
     last_spoken_label = None
     last_spoken_time = 0.0
     tts_cooldown_sec = 2.0
-    tts_lock = threading.Lock()
-    tts_busy = [False]
 
     def speak(text):
-        with tts_lock:
-            if tts_busy[0]:
-                return
-            tts_busy[0] = True
-        try:
-            tts_engine.say(text)
-            tts_engine.runAndWait()
-        finally:
-            with tts_lock:
-                tts_busy[0] = False
+        if not use_tts:
+            return
+        subprocess.Popen(["say", text])
 
     # Initialize webcam
     cap = cv2.VideoCapture(args.camera)
@@ -177,10 +163,6 @@ def main():
     letter_conf = 0.0
     word_label = "—"
     word_conf = 0.0
-
-    # Rolling window for the LSTM word model (20 frames of 63 features)
-    sequence_length = 20
-    frame_buffer = collections.deque(maxlen=sequence_length)
 
     try:
         while True:
@@ -215,35 +197,25 @@ def main():
                         mp_drawing_styles.get_default_hand_connections_style(),
                     )
 
-                # Extract features for prediction
+                # Extract normalized features for prediction
                 features = extract_hand_features(detection_result.hand_landmarks[0])
-                frame_buffer.append(features)
                 
-                # Letter Prediction Pipeline (Static - 1 frame)
+                # Letter Prediction (Static Dense - single frame)
                 l_features = letter_scaler.transform([features])
                 l_preds = letter_model.predict(l_features, verbose=0)[0]
                 l_idx = np.argmax(l_preds)
                 letter_conf = l_preds[l_idx]
                 letter_label = letter_encoder.inverse_transform([l_idx])[0]
                 
-                # Word Prediction Pipeline (Dynamic - 20 frames)
-                if len(frame_buffer) == sequence_length:
-                    # The scaler expects 63 features per row. Scaler transforms the (20, 63) array.
-                    sequence_array = np.array(frame_buffer)
-                    w_features_scaled = word_scaler.transform(sequence_array)
-                    # Reshape to 3D for LSTM: (1 sample, 20 timesteps, 63 features)
-                    w_features = w_features_scaled.reshape(1, sequence_length, FEATURES_PER_HAND)
-                    
-                    w_preds = word_model.predict(w_features, verbose=0)[0]
-                    w_idx = np.argmax(w_preds)
-                    word_conf = w_preds[w_idx]
-                    word_label = word_encoder.inverse_transform([w_idx])[0]
-                else:
-                    word_label = "Buffering..."
-                    word_conf = 0.0
+                # Word Prediction (Static Dense - single frame, same approach)
+                w_features = word_scaler.transform([features])
+                w_preds = word_model.predict(w_features, verbose=0)[0]
+                w_idx = np.argmax(w_preds)
+                word_conf = w_preds[w_idx]
+                word_label = word_encoder.inverse_transform([w_idx])[0]
 
                 # --- TTS Trigger Logic ---
-                if tts_engine and not tts_busy[0]:
+                if use_tts:
                     best_label = None
                     # Prioritize words over letters if both are highly confident
                     if word_conf >= args.threshold:
@@ -256,7 +228,7 @@ def main():
                         if best_label != last_spoken_label or (current_time - last_spoken_time) > tts_cooldown_sec:
                             last_spoken_label = best_label
                             last_spoken_time = current_time
-                            threading.Thread(target=speak, args=(best_label,), daemon=True).start()
+                            speak(best_label)
 
             # Display predictions on frame
             cv2.putText(

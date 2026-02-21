@@ -100,7 +100,7 @@ def main():
         csv_path = data_dir / "asl_data_auto.csv"
         prefix = "letter"
     else:
-        csv_path = data_dir / "wlasl_data_naive.csv"
+        csv_path = data_dir / "wlasl_data_static.csv"
         prefix = "word"
 
     if not csv_path.exists():
@@ -108,13 +108,14 @@ def main():
         print("Run extraction or collection scripts first.")
         return
 
-    is_sequence = (args.type == "word")
+    # Both letter and word now use static Dense architecture
+    is_sequence = False
 
-    print(f"Loading data from {csv_path} (Sequence mode: {is_sequence})...")
+    print(f"Loading data from {csv_path}...")
     X, y, label_encoder = load_data(csv_path, is_sequence=is_sequence)
 
     num_classes = len(label_encoder.classes_)
-    print(f"Classes: {list(label_encoder.classes_)} ({num_classes} labels)")
+    print(f"Classes: {num_classes} labels")
     print(f"Samples: {len(X)}")
 
     # Filter out classes with too few samples to prevent train_test_split errors
@@ -137,23 +138,9 @@ def main():
 
     # Scale features with scikit-learn
     scaler = StandardScaler()
-    if is_sequence:
-        # Standard scaler expects 2D data, so we flatten first
-        samples, time_steps, features = X_train.shape
-        X_train_flat = X_train.reshape(-1, features)
-        X_train_scaled = scaler.fit_transform(X_train_flat)
-        X_train = X_train_scaled.reshape(samples, time_steps, features)
-
-        samples, time_steps, features = X_test.shape
-        X_test_flat = X_test.reshape(-1, features)
-        X_test_scaled = scaler.transform(X_test_flat)
-        X_test = X_test_scaled.reshape(samples, time_steps, features)
-        
-        input_shape = (time_steps, features)
-    else:
-        X_train = scaler.fit_transform(X_train)
-        X_test = scaler.transform(X_test)
-        input_shape = (X.shape[1],)
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
+    input_shape = (X.shape[1],)
 
     # Build and compile model
     model = build_model(num_classes, input_shape, is_sequence=is_sequence)
