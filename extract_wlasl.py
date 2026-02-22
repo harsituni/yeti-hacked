@@ -15,7 +15,7 @@ def main():
     parser.add_argument(
         "--output_dir", 
         type=str, 
-        default="SignBridge/data",
+        default="data",
         help="Directory to save the extracted features CSV",
     )
     parser.add_argument(
