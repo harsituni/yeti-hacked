@@ -1,4 +1,4 @@
-# 🌉 SignBridge: Your Voice, Delivered in Signs
+# 🌉 SignBridge: Giving Voice to Your Signs
 
 ### *Breaking Communication Barriers with Real-Time ASL Translation*
 
@@ -20,22 +20,44 @@ Most sign language models fail when the user moves their hand or stands at a dif
 ## 🚀 Quick Start
 
 ### 1. Prepare Your Environment
+
+**🐧 Linux & Raspberry Pi**
 ```bash
-# Clone the repository
 git clone https://github.com/harsituni/yeti-hacked.git
 cd yeti-hacked
-
-# Install System Library Helpers (Linux/Pi only)
 sudo apt update && sudo apt install -y libgl1-mesa-glx libglib2.0-0 libespeak-ng1
-
-# Setup a clean virtual environment
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Start Bridging
+**🍎 macOS**
 ```bash
+git clone https://github.com/harsituni/yeti-hacked.git
+cd yeti-hacked
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+**🪟 Windows**
+```powershell
+git clone https://github.com/harsituni/yeti-hacked.git
+cd yeti-hacked
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### 2. Start Bridging
+
+**🐧 Linux & Raspberry Pi / 🍎 macOS**
+```bash
+python3 inference_pi.py
+```
+
+**🪟 Windows**
+```powershell
 python inference_pi.py
 ```
 
@@ -45,8 +67,8 @@ python inference_pi.py
 
 Every hand is unique. SignBridge allows you to build a custom dictionary in minutes.
 
-1.  **Record**: Run `python collection/data_collection.py`. Hold **'l'** for letters or **'s'** for motion-based words.
-2.  **Train**: Run `python train_model.py`. The AI will automatically rebuild its "brain" with your data.
+1.  **Record**: Run `python3 collection/data_collection.py` (or `python` on Windows). Hold **'l'** for letters or **'s'** for motion-based words.
+2.  **Train**: Run `python3 train_model.py` (or `python` on Windows). The AI will automatically rebuild its "brain" with your data.
 3.  **Deploy**: Your new `SignBridge` is ready!
 
 ---
@@ -67,7 +89,7 @@ SignBridge/ (Root)
 ├── train_model.py            # The Training Engine
 ├── requirements.txt          # The Blueprint
 ├── research_archive/         # Archived development history
-└── README.md                 # Your Voice, Delivered in Signs
+└── README.md                 # Giving Voice to Your Signs
 ```
 
 ---
