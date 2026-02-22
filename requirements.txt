@@ -2,7 +2,7 @@ opencv-python-headless
 mediapipe
 tensorflow
 scikit-learn
-numpy<2.0.0
+numpy
 pandas
 joblib
 pyttsx3
