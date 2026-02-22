@@ -97,9 +97,12 @@ def main():
     data_dir = Path(__file__).parent / "data"
     model_dir = Path(__file__).parent / "models"
     
-    csv_paths = list(data_dir.glob("*.csv"))
+    # Only load the main ASL sequence data (other CSVs have incompatible formats)
+    csv_paths = [data_dir / "asl_data.csv"]
+    csv_paths = [p for p in csv_paths if p.exists()]
     if not csv_paths:
-        print(f"Error: No .csv files found in {data_dir}")
+        print(f"Error: asl_data.csv not found in {data_dir}")
+        print("Run automated_collector.py first to collect gesture data.")
         return
 
     print(f"Loading sequence data from {len(csv_paths)} files...")
