@@ -58,6 +58,25 @@ If you want the AI to learn your specific hand gestures:
 
 ## 📂 Project Structure
 
+```text
+asl-harsit/
+├── collection/               # Data tools
+│   ├── automated_collector.py
+│   └── data_collection.py
+├── models/                   # The AI "Brain"
+│   ├── asl_model.keras       # Retrained LSTM model
+│   ├── hand_landmarker.task  # MediaPipe model
+│   ├── label_encoder.joblib  # Mapping of IDs to labels
+│   └── scaler.joblib         # Landmark scaling metadata
+├── data/                     # Training data
+│   └── asl_data_auto.csv
+├── inference_pi.py           # Main Translation Application
+├── train_model.py            # Neural Network Trainer
+├── requirements.txt          # Dependency List
+├── README.md                 # Instructions & Pitch
+└── .gitignore                # Repository hygiene
+```
+
 - `inference_pi.py`: The main live application.
 - `train_model.py`: The training engine that generates the AI's "brain."
 - `collection/`:
