@@ -57,4 +57,20 @@ If you want the AI to learn your specific hand gestures:
 ## 📈 Performance
 The current model uses a **Dual-Stage LSTM** architecture, achieving over **97% accuracy** on personalized datasets while maintaining high frame rates on low-power devices like the Raspberry Pi.
 
+## 🛠 Troubleshooting & Raspberry Pi Tips
+
+### ❌ Error: "Could not find a version that satisfies the requirement mediapipe"
+This is the most common issue on Raspberry Pi. **MediaPipe requires a 64-bit OS.**
+1. **Check your OS**: Run `getconf LONG_BIT` in your terminal.
+2. **If it says `32`**: You must reinstall your Raspberry Pi OS using the **64-bit version**.
+3. **If it says `64`**: Ensure you are using Python 3.9, 3.10, or 3.11.
+
+### 🔇 No Speech on Raspberry Pi?
+If you can see the text but can't hear the voice:
+1. **Install audio libraries**: 
+   ```bash
+   sudo apt-get install libespeak-ng1
+   ```
+2. **Force Audio Jack**: Run `sudo raspi-config` -> System Options -> Audio -> choose the Headphones/Jack if not using HDMI.
+
 ---
