@@ -84,7 +84,15 @@ def main():
         default="word",
         help="Type of model to train (affects input CSV and output model names)"
     )
+    parser.add_argument(
+        "--exclude",
+        type=str,
+        default="",
+        help="Comma-separated list of labels to exclude (e.g., 'del,nothing')"
+    )
     args = parser.parse_args()
+    
+    exclude_list = [x.strip().lower() for x in args.exclude.split(",") if x.strip()]
     
     data_dir = Path(__file__).parent / "data"
     model_dir = Path(__file__).parent / "models"
@@ -95,7 +103,23 @@ def main():
         return
 
     print(f"Loading sequence data from {len(csv_paths)} files...")
-    X, y, label_encoder = load_data(csv_paths)
+    X, y_raw, label_encoder = load_data(csv_paths)
+
+    # Apply exclusions if any
+    if exclude_list:
+        print(f"Excluding labels: {exclude_list}")
+        # Need to re-filter X and y_raw before encoding
+        # However, load_data already encoded y. Let's fix load_data or handle it here.
+        active_mask = ~np.isin(label_encoder.inverse_transform(y_raw), exclude_list)
+        X = X[active_mask]
+        y_raw = y_raw[active_mask]
+        
+        # Re-encode to remove gaps in target indices
+        actual_labels = label_encoder.inverse_transform(y_raw)
+        label_encoder = LabelEncoder()
+        y = label_encoder.fit_transform(actual_labels)
+    else:
+        y = y_raw
 
     num_classes = len(label_encoder.classes_)
     print(f"Classes: {num_classes}")
