@@ -17,16 +17,26 @@ An advanced American Sign Language (ASL) recognition system that translates hand
    cd yeti-hacked/asl-harsit
    ```
 
-2. **Install dependencies:**
+2. **Mandatory System Libraries (Linux/Pi only):**
    ```bash
+   sudo apt update
+   sudo apt install -y libgl1-mesa-glx libglib2.0-0 libespeak-ng1
+   ```
+
+3. **Install Python dependencies:**
+   ```bash
+   # Create a virtual environment (Recommended)
+   python -m venv .venv
+   source .venv/bin/activate  # macOS/Linux
+   # .venv\Scripts\activate   # Windows
+
    pip install -r requirements.txt
    ```
 
-3. **Run the recognition:**
+4. **Run the recognition:**
    ```bash
    python inference_pi.py
    ```
-   *The system will automatically download the required MediaPipe model on its first run.*
 
 ## 🎨 How to Personalize (Teach it your signs)
 
