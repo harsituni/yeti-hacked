@@ -20,7 +20,7 @@ An advanced American Sign Language (ASL) recognition system that translates hand
 2. **Mandatory System Libraries (Linux/Pi only):**
    ```bash
    sudo apt update
-   sudo apt install -y libgl1-mesa-glx libglib2.0-0 libespeak-ng1
+   sudo apt install -y libgl1 libglib2.0-0 libespeak-ng1
    ```
 
 3. **Install Python dependencies:**
