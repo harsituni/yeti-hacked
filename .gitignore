@@ -1,0 +1,21 @@
+# Virtual environments
+.venv/
+.venv_stable/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Data files
+data/
+
+# OS files
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

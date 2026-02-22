@@ -1,0 +1,10 @@
+==================================================
+Starting Full ASL Pipeline: Extraction & Training
+==================================================
+[1/2] Extracting all sequences from WLASL dataset...
+Extraction successful. See full_extraction.log for details.
+[2/2] Training the LSTM word model on the new dataset...
+Training successful. Sequence mode models saved to models/!
+==================================================
+PIPELINE FULLY COMPLETE!
+==================================================

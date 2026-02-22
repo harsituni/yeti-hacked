@@ -6,6 +6,7 @@ reshapes them into (samples, time_steps, features),
 and trains a Recurrent Neural Network (LSTM).
 """
 
+import argparse
 import numpy as np
 import pandas as pd
 import joblib
@@ -75,6 +76,16 @@ def build_lstm_model(num_classes):
     return model
 
 def main():
+    parser = argparse.ArgumentParser(description="ASL Model Training")
+    parser.add_argument(
+        "--type", 
+        type=str, 
+        choices=["letter", "word"], 
+        default="word",
+        help="Type of model to train (affects input CSV and output model names)"
+    )
+    args = parser.parse_args()
+    
     data_dir = Path(__file__).parent / "data"
     model_dir = Path(__file__).parent / "models"
     
@@ -90,9 +101,22 @@ def main():
     print(f"Classes: {num_classes}")
     print(f"Samples: {len(X)}")
 
-    # Split data
+    # Filter out classes with too few samples to prevent train_test_split errors
+    min_samples = 3
+    class_counts = pd.Series(y).value_counts()
+    valid_classes = class_counts[class_counts >= min_samples].index
+    
+    valid_mask = np.isin(y, valid_classes)
+    X = X[valid_mask]
+    y = y[valid_mask]
+    
+    if len(np.unique(y)) < 2:
+        print("Not enough diverse data to train yet. Let the extraction script finish.")
+        return
+
+    # Split data without strict stratification in case of small datasets
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
+        X, y, test_size=0.2, random_state=42
     )
 
     # Standardize features

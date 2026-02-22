@@ -1,0 +1,617 @@
+I0000 00:00:1771664406.761617  702291 gl_context.cc:407] GL version: 2.1 (2.1 Metal - 90.5), renderer: Apple M4 Pro
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+W0000 00:00:1771664406.764775  702292 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1771664406.767921  702295 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1771664406.797988  702304 landmark_projection_calculator.cc:81] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+Loading missing videos list...
+Loading JSON annotations...
+Targeting top 2000 words...
+Processing word: 'book' (40 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'drink' (35 potential videos)
+ -> Found landmarks for 15 videos.
+Processing word: 'computer' (30 potential videos)
+ -> Found landmarks for 13 videos.
+Processing word: 'before' (26 potential videos)
+ -> Found landmarks for 16 videos.
+Processing word: 'chair' (26 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'go' (26 potential videos)
+ -> Found landmarks for 15 videos.
+Processing word: 'clothes' (25 potential videos)
+ -> Found landmarks for 5 videos.
+Processing word: 'who' (25 potential videos)
+ -> Found landmarks for 14 videos.
+Processing word: 'candy' (24 potential videos)
+ -> Found landmarks for 13 videos.
+Processing word: 'cousin' (23 potential videos)
+ -> Found landmarks for 14 videos.
+Processing word: 'deaf' (23 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'fine' (22 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'help' (22 potential videos)
+ -> Found landmarks for 14 videos.
+Processing word: 'no' (22 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'thin' (22 potential videos)
+ -> Found landmarks for 16 videos.
+Processing word: 'walk' (22 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'year' (22 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'yes' (22 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'all' (21 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'black' (21 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'cool' (21 potential videos)
+ -> Found landmarks for 16 videos.
+Processing word: 'finish' (21 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'hot' (21 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'like' (21 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'many' (21 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'mother' (21 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'now' (21 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'orange' (21 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'table' (21 potential videos)
+ -> Found landmarks for 5 videos.
+Processing word: 'thanksgiving' (21 potential videos)
+ -> Found landmarks for 13 videos.
+Processing word: 'what' (21 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'woman' (21 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'bed' (20 potential videos)
+ -> Found landmarks for 13 videos.
+Processing word: 'blue' (20 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'bowling' (20 potential videos)
+ -> Found landmarks for 13 videos.
+Processing word: 'can' (20 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'dog' (20 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'family' (20 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'fish' (20 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'graduate' (20 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'hat' (20 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'hearing' (20 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'kiss' (20 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'language' (20 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'later' (20 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'man' (20 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'shirt' (20 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'study' (20 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'tall' (20 potential videos)
+ -> Found landmarks for 13 videos.
+Processing word: 'white' (20 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'wrong' (20 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'accident' (19 potential videos)
+ -> Found landmarks for 13 videos.
+Processing word: 'apple' (19 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'bird' (19 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'change' (19 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'color' (19 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'corn' (19 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'cow' (19 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'dance' (19 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'dark' (19 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'doctor' (19 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'eat' (19 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'enjoy' (19 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'forget' (19 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'give' (19 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'last' (19 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'meet' (19 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'pink' (19 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'pizza' (19 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'play' (19 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'school' (19 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'secretary' (19 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'short' (19 potential videos)
+ -> Found landmarks for 13 videos.
+Processing word: 'time' (19 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'want' (19 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'work' (19 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'africa' (18 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'basketball' (18 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'birthday' (18 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'brown' (18 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'but' (18 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'cheat' (18 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'city' (18 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'cook' (18 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'decide' (18 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'full' (18 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'how' (18 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'jacket' (18 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'letter' (18 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'medicine' (18 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'need' (18 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'paint' (18 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'paper' (18 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'pull' (18 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'purple' (18 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'right' (18 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'same' (18 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'son' (18 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'tell' (18 potential videos)
+ -> Found landmarks for 10 videos.
+[h264 @ 0x9640f9c00] Invalid NAL unit size (745 > 472).
+[h264 @ 0x9640f9c00] Error splitting the input into NAL units.
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x95dfaaf80] stream 1, offset 0x3b468: partial file
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x95dfaaf80] stream 1, offset 0x3b7d3: partial file
+Processing word: 'thursday' (18 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'visit' (18 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'wait' (18 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'water' (18 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'wife' (18 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'yellow' (18 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'backpack' (17 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'bar' (17 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'brother' (17 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'cat' (17 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'check' (17 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'class' (17 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'cry' (17 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'different' (17 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'door' (17 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'green' (17 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'hair' (17 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'have' (17 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'headache' (17 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'inform' (17 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'knife' (17 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'laugh' (17 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'learn' (17 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'movie' (17 potential videos)
+ -> Found landmarks for 5 videos.
+Processing word: 'rabbit' (17 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'read' (17 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'red' (17 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'room' (17 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'run' (17 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'show' (17 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'sick' (17 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'snow' (17 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'take' (17 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'tea' (17 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'teacher' (17 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'week' (17 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'why' (17 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'with' (17 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'write' (17 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'yesterday' (17 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'again' (16 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'bad' (16 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'ball' (16 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'bathroom' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'blanket' (16 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'buy' (16 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'call' (16 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'coffee' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'cold' (16 potential videos)
+ -> Found landmarks for 12 videos.
+Processing word: 'college' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'copy' (16 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'cute' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'daughter' (16 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'far' (16 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'first' (16 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'friend' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'good' (16 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'happy' (16 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'home' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'know' (16 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'late' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'leave' (16 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'list' (16 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'lose' (16 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'name' (16 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'old' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'person' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'police' (16 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'problem' (16 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'remember' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'share' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'soon' (16 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'stay' (16 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'sunday' (16 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'test' (16 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'tired' (16 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'trade' (16 potential videos)
+ -> Found landmarks for 13 videos.
+Processing word: 'travel' (16 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'window' (16 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'you' (16 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'example' (15 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'about' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'approve' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'arrive' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'balance' (15 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'banana' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'beard' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'because' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'boy' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'business' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'careful' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'center' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'chat' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'children' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'christmas' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'clock' (15 potential videos)
+ -> Found landmarks for 5 videos.
+Processing word: 'close' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'convince' (15 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'country' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'crash' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'day' (15 potential videos)
+[NULL @ 0x961fc7c00] Invalid NAL unit size (71678 > 10776).
+[NULL @ 0x961fc7c00] missing picture in access unit with size 10780
+[h264 @ 0x9640fa400] Invalid NAL unit size (71678 > 10776).
+[h264 @ 0x9640fa400] Error splitting the input into NAL units.
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x95e6e8780] stream 1, offset 0x2a27a7: partial file
+ -> Found landmarks for 9 videos.
+Processing word: 'discuss' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'dress' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'drive' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'drop' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'fat' (15 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'feel' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'football' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'future' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'game' (15 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'girl' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'government' (15 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'hear' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'here' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'hope' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'house' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'husband' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'interest' (15 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'join' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'light' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'live' (15 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'make' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'mean' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'more' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'most' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'music' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'new' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'none' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'office' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'order' (15 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'pants' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'party' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'past' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'pencil' (15 potential videos)
+ -> Found landmarks for 5 videos.
+Processing word: 'plan' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'please' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'practice' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'president' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'restaurant' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'ride' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'russia' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'salt' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'sandwich' (15 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'sign' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'since' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'small' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'some' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'south' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'student' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'teach' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'theory' (15 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'tomato' (15 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'train' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'ugly' (15 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'war' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'where' (15 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'your' (15 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'always' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'animal' (14 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'argue' (14 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'baby' (14 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'back' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'bake' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'bath' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'behind' (14 potential videos)
+ -> Found landmarks for 5 videos.
+Processing word: 'bring' (14 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'catch' (14 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'cereal' (14 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'champion' (14 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'cheese' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'cough' (14 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'crazy' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'delay' (14 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'delicious' (14 potential videos)
+ -> Found landmarks for 10 videos.
+Processing word: 'disappear' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'divorce' (14 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'draw' (14 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'east' (14 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'easy' (14 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'egg' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'environment' (14 potential videos)
+ -> Found landmarks for 11 videos.
+Processing word: 'father' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'fault' (14 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'flower' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'friendly' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'glasses' (14 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'halloween' (14 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'hard' (14 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'heart' (14 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'hour' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'humble' (14 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'hurry' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'improve' (14 potential videos)
+ -> Found landmarks for 9 videos.
+Processing word: 'internet' (14 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'jump' (14 potential videos)
+ -> Found landmarks for 6 videos.
+Processing word: 'kill' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'law' (14 potential videos)
+ -> Found landmarks for 7 videos.
+Processing word: 'match' (14 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'meat' (14 potential videos)
+ -> Found landmarks for 8 videos.
+Processing word: 'milk' (14 potential videos)
+ -> Found landmarks for 5 videos.
+Processing word: 'money' (14 potential videos)
+ -> Found landmarks for 6 videos.
