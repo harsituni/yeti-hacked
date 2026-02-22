@@ -58,4 +58,3 @@ If you want the AI to learn your specific hand gestures:
 The current model uses a **Dual-Stage LSTM** architecture, achieving over **97% accuracy** on personalized datasets while maintaining high frame rates on low-power devices like the Raspberry Pi.
 
 ---
-Created with ❤️ by [Harsit / Yeti-Hacked]
