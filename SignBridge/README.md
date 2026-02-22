@@ -1,106 +1,89 @@
-# SignBridge: Real-Time Hand Language Recognition
+# 🌉 SignBridge: Your Voice, Delivered in Signs
 
-An advanced American Sign Language (ASL) recognition system that translates hand gestures into text and speech. This project uses **Wrist-Relative Normalization**, making it robust to hand position and distance from the camera.
+### *Breaking Communication Barriers with Real-Time ASL Translation*
 
-## 🚀 Features
+**SignBridge** is a cutting-edge American Sign Language (ASL) recognition system designed for immediate, real-time translation. By combining advanced **Temporal LSTM Networks** with **Wrist-Relative Normalization**, SignBridge provides a robust and personalized bridge between the signing and non-signing communities.
 
-- **Personalized Training**: Teach the AI *your* specific hand style using the built-in collection tool.
-- **Position Independent**: Works anywhere in the camera frame thanks to landmark normalization.
-- **Real-Time Inference**: Optimized for Raspberry Pi and Desktop using MediaPipe's modern HandLandmarker Tasks API.
-- **Stabilized TTS**: Integrated Text-to-Speech with logic that prevents "flickering" audio.
+---
 
-## ⚙️ Quick Start (For Friends)
+## 🌟 Why SignBridge?
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/harsituni/yeti-hacked.git
-   cd yeti-hacked/SignBridge
-   ```
+Most sign language models fail when the user moves their hand or stands at a different distance. **SignBridge is built differently.**
 
-2. **Mandatory System Libraries (Linux/Pi only):**
-   ```bash
-   sudo apt update
-   sudo apt install -y libgl1-mesa-glx libglib2.0-0 libespeak-ng1
-   ```
+*   **📏 Position & Scale Invariant**: Our custom "Wrist-Relative" normalization ensures accuracy whether you're right in front of the camera or across the room.
+*   **🧠 Personalized Intelligence**: Don't just adapt to the model—make the model adapt to *you*. Use the built-in teaching tool to record your unique signing style.
+*   **🥧 Raspberry Pi Optimized**: Engineered to run efficiently on low-power devices, making portable, real-time translation a reality.
+*   **🔊 Dual Output**: Instant text overlays and stabilized text-to-speech for seamless conversations.
 
-3. **Install Python dependencies:**
-   ```bash
-   # Create a virtual environment (Recommended)
-   python -m venv .venv
-   source .venv/bin/activate  # macOS/Linux
-   # .venv\Scripts\activate   # Windows
+---
 
-   pip install -r requirements.txt
-   ```
+## 🚀 Quick Start
 
-4. **Run the recognition:**
-   ```bash
-   python inference_pi.py
-   ```
+### 1. Prepare Your Environment
+```bash
+# Clone the repository
+git clone https://github.com/harsituni/yeti-hacked.git
+cd yeti-hacked/SignBridge
 
-## 🎨 How to Personalize (Teach it your signs)
+# Install System Library Helpers (Linux/Pi only)
+sudo apt update && sudo apt install -y libgl1-mesa-glx libglib2.0-0 libespeak-ng1
 
-If you want the AI to learn your specific hand gestures:
+# Setup a clean virtual environment
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-1. **Record your data:**
-   ```bash
-   python collection/data_collection.py
-   ```
-   - Press **'l'** to save a static letter.
-   - Press **'s'** to record a 1-second motion (for words).
-   - Press **'n'** to switch to a new label mid-session.
+### 2. Start Bridging
+```bash
+python inference_pi.py
+```
 
-2. **Retrain the brain:**
-   ```bash
-   python train_model.py
-   ```
-   *The AI will now recognize your custom hand style!*
+---
 
-## 📂 Project Structure
+## 🎨 Teach it Your Style (Personalization)
+
+Every hand is unique. SignBridge allows you to build a custom dictionary in minutes.
+
+1.  **Record**: Run `python collection/data_collection.py`. Hold **'l'** for letters or **'s'** for motion-based words.
+2.  **Train**: Run `python train_model.py`. The AI will automatically rebuild its "brain" with your data.
+3.  **Deploy**: Your new `SignBridge` is ready!
+
+---
+
+## 📂 Project Architecture
 
 ```text
 SignBridge/
-├── collection/               # Data tools
-│   ├── automated_collector.py
-│   └── data_collection.py
-├── models/                   # The AI "Brain"
-│   ├── asl_model.keras       # Retrained LSTM model
-│   ├── hand_landmarker.task  # MediaPipe model
-│   ├── label_encoder.joblib  # Mapping of IDs to labels
-│   └── scaler.joblib         # Landmark scaling metadata
-├── data/                     # Training data
-│   └── asl_data_auto.csv
-├── inference_pi.py           # Main Translation Application
-├── train_model.py            # Neural Network Trainer
-├── requirements.txt          # Dependency List
-├── README.md                 # Instructions & Pitch
-└── .gitignore                # Repository hygiene
+├── collection/               # Data Acquisition Suite
+│   ├── automated_collector.py # Dataset processor (WLASL/Alphabet)
+│   └── data_collection.py     # Personalization tool
+├── models/                   # The AI Brain
+│   ├── asl_model.keras       # The trained Neural Network
+│   ├── hand_landmarker.task  # MediaPipe Vision Core
+│   └── *.joblib              # Meta-parameters & Encoding
+├── data/                     # Your personal data vaults
+├── inference_pi.py           # The Mission Control (Live App)
+├── train_model.py            # The Training Engine
+└── requirements.txt          # The Blueprint
 ```
 
-- `inference_pi.py`: The main live application.
-- `train_model.py`: The training engine that generates the AI's "brain."
-- `collection/`:
-    - `data_collection.py`: The personalization tool for recording your own signs.
-    - `automated_collector.py`: Processes the massive ASL Alphabet and WLASL datasets.
-- `models/`: Stores the trained `.keras` model and normalization artifacts.
+---
 
-## 📈 Performance
-The current model uses a **Dual-Stage LSTM** architecture, achieving over **97% accuracy** on personalized datasets while maintaining high frame rates on low-power devices like the Raspberry Pi.
-
-## 🛠 Troubleshooting & Raspberry Pi Tips
-
-### ❌ Error: "Could not find a version that satisfies the requirement mediapipe"
-This is the most common issue on Raspberry Pi. **MediaPipe requires a 64-bit OS.**
-1. **Check your OS**: Run `getconf LONG_BIT` in your terminal.
-2. **If it says `32`**: You must reinstall your Raspberry Pi OS using the **64-bit version**.
-3. **If it says `64`**: Ensure you are using Python 3.9, 3.10, or 3.11.
-
-### 🔇 No Speech on Raspberry Pi?
-If you can see the text but can't hear the voice:
-1. **Install audio libraries**: 
-   ```bash
-   sudo apt-get install libespeak-ng1
-   ```
-2. **Force Audio Jack**: Run `sudo raspi-config` -> System Options -> Audio -> choose the Headphones/Jack if not using HDMI.
+## 📈 Performance & Tech Stack
+*   **Architecture**: Dual-Stage LSTM (Long Short-Term Memory)
+*   **Accuracy**: >97% on personalized gesture sets
+*   **CV Engine**: MediaPipe Tasks API
+*   **Logic**: Python 3 / TensorFlow / OpenCV
 
 ---
+
+## 🛠 Troubleshooting
+
+*   **MediaPipe Missing?** Ensure you are on a **64-bit OS** (`getconf LONG_BIT`).
+*   **No Sound?** Run `sudo apt install libespeak-ng1` to enable the speech engine.
+*   **Python Version?** SignBridge loves Python **3.10 or 3.11**.
+
+---
+
+*SignBridge: Built for developers, designed for people.* 🌉✨
