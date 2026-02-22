@@ -1,31 +1,20 @@
 # ASL Super-Vision: Real-Time Hand Language Recognition
 
-An advanced American Sign Language (ASL) recognition system that translates hand gestures into text and speech. This project combines the **ASL Alphabet** with the massive **WLASL (World-Level ASL)** dataset to recognize over 2000+ unique signs in real-time.
-
-![ASL Recognition Demo](https://images.unsplash.com/photo-1610484826967-09c57193796d?auto=format&fit=crop&w=800&q=80) 
-*(Example image - replace with your own screenshot/gif)*
+An advanced American Sign Language (ASL) recognition system that translates hand gestures into text and speech. This project uses **Wrist-Relative Normalization**, making it robust to hand position and distance from the camera.
 
 ## 🚀 Features
 
-- **Massive Vocabulary**: Recognizes the full ASL Alphabet (A-Z) plus over 2000 words from the WLASL dataset.
+- **Personalized Training**: Teach the AI *your* specific hand style using the built-in collection tool.
+- **Position Independent**: Works anywhere in the camera frame thanks to landmark normalization.
 - **Real-Time Inference**: Optimized for Raspberry Pi and Desktop using MediaPipe's modern HandLandmarker Tasks API.
-- **Smart Text-to-Speech**: Native macOS `say` integration and `pyttsx3` fallback with prediction stabilization (prevents "flickering" audio).
-- **Automated Data Pipeline**: One-script dataset collection that pulls directly from Kaggle and extracts hand landmarks into a unified CSV.
-- **Lock-in Mechanism**: Visual and logic stabilization that ensures a sign is held before triggering speech.
+- **Stabilized TTS**: Integrated Text-to-Speech with logic that prevents "flickering" audio.
 
-## 🛠️ Technology Stack
-
-- **Computer Vision**: MediaPipe (HandLandmarker Tasks API), OpenCV
-- **Deep Learning**: TensorFlow / Keras (Feedforward Neural Network)
-- **Data Engineering**: Kagglehub, Scikit-learn, Pandas, Joblib
-- **Speech Synthesis**: Native macOS TTS / pyttsx3
-
-## ⚙️ Setup & Installation
+## ⚙️ Quick Start (For Friends)
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/asl-super-vision.git
-   cd asl-super-vision
+   git clone https://github.com/harsituni/yeti-hacked.git
+   cd yeti-hacked/asl-harsit
    ```
 
 2. **Install dependencies:**
@@ -33,48 +22,40 @@ An advanced American Sign Language (ASL) recognition system that translates hand
    pip install -r requirements.txt
    ```
 
-3. **MediaPipe Model**: The project will automatically download the `hand_landmarker.task` file on its first run.
+3. **Run the recognition:**
+   ```bash
+   python inference_pi.py
+   ```
+   *The system will automatically download the required MediaPipe model on its first run.*
+
+## 🎨 How to Personalize (Teach it your signs)
+
+If you want the AI to learn your specific hand gestures:
+
+1. **Record your data:**
+   ```bash
+   python data_collection.py
+   ```
+   - Press **'l'** to save a static letter.
+   - Press **'s'** to record a 1-second motion (for words).
+   - Press **'n'** to switch to a new label mid-session.
+
+2. **Retrain the brain:**
+   ```bash
+   python train_model.py
+   ```
+   *The AI will now recognize your custom hand style!*
 
 ## 📂 Project Structure
 
-- `automated_collector.py`: The "Super Collector". Hybrid script that processes thousands of images (Alphabet) and videos (WLASL) into a single landmark dataset.
-- `train_model.py`: High-capacity training script optimized for 2000+ classes.
-- `inference_pi.py`: The main live application. Features camera feed, landing overlay, and stabilized TTS.
-- `data/`: Contains the generated `asl_data_auto.csv`.
-- `models/`: Stores the trained `.keras` model, scaler, and label encoder.
-
-## 🚀 How to Use
-
-### 1. Unified Data Collection
-Build your own massive dataset locally. This script handles the downloading and landmark extraction automatically.
-```bash
-python automated_collector.py
-```
-*Note: This processes ~2000 glosses and may take a significant amount of time.*
-
-### 2. Training the Model
-Train the deep neural network on the extracted landmark data:
-```bash
-python train_model.py
-```
-The script uses **Early Stopping** to get the best possible accuracy and saves the model to the `models/` directory.
-
-### 3. Real-Time Recognition
-Run the live translator:
-```bash
-python inference_pi.py
-```
-- **"LOCKING IN..."**: Appears when the system is holding a prediction for stability.
-- **"TALKING..."**: Appears when the sign is being translated into speech.
-- **Press 'q'**: To exit the application.
+- `inference_pi.py`: The main live application.
+- `data_collection.py`: The personalization tool for recording your own signs.
+- `train_model.py`: The training engine that generates the AI's "brain."
+- `automated_collector.py`: Processes the massive ASL Alphabet and WLASL datasets.
+- `models/`: Stores the trained `.keras` model and normalization artifacts.
 
 ## 📈 Performance
-The current model architecture achieves over **99% accuracy** on the Alphabet validation set and high consistency on word detection due to the stabilization buffer.
-
-## 🤝 Credits
-- Dataset: [ASL Alphabet (Kaggle)](https://www.kaggle.com/datasets/grassknoted/asl-alphabet)
-- Dataset: [WLASL (World-Level ASL)](https://www.kaggle.com/datasets/risangbaskoro/wlasl-processed)
-- Hand Tracking: [MediaPipe](https://google.github.io/mediapipe/)
+The current model uses a **Dual-Stage LSTM** architecture, achieving over **97% accuracy** on personalized datasets while maintaining high frame rates on low-power devices like the Raspberry Pi.
 
 ---
 Created with ❤️ by [Harsit / Yeti-Hacked]
