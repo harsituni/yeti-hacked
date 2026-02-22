@@ -67,7 +67,7 @@ python inference_pi.py
 
 Every hand is unique. SignBridge allows you to build a custom dictionary in minutes.
 
-1.  **Record**: Run `python3 collection/data_collection.py` (or `python` on Windows). Hold **'l'** for letters or **'s'** for motion-based words.
+1.  **Record**: Run `python3 collection/data_collection.py` (or `python` on Windows). Press **'l'** for letters or **'s'** for motion-based words.
 2.  **Train**: Run `python3 train_model.py` (or `python` on Windows). The AI will automatically rebuild its "brain" with your data.
 3.  **Deploy**: Your new `SignBridge` is ready!
 
