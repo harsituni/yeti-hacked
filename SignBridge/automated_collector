@@ -1,0 +1,103 @@
+import json
+import cv2
+import mediapipe as mp
+from mediapipe.tasks import python
+from mediapipe.tasks.python import vision
+import kagglehub
+import os
+from pathlib import Path
+import csv
+
+# --- PATHS ---
+OUTPUT_CSV = "asl-harsit/data/asl_data_auto.csv"
+MODEL_PATH = Path(__file__).parent / "models" / "hand_landmarker.task"
+
+# --- CONFIGURATION ---
+# The grassknoted/asl-alphabet has folders: A-Z, del, nothing, space
+TARGET_SIGNS = [chr(i) for i in range(ord('A'), ord('Z') + 1)] + ["del", "nothing", "space"]
+LIMIT_PER_SIGN = 3000
+
+def get_dataset_path():
+    print("Checking ASL Alphabet dataset...")
+    path = Path(kagglehub.dataset_download("grassknoted/asl-alphabet"))
+    # The dataset structure is: asl-alphabet/asl_alphabet_train/asl_alphabet_train/[A-Z]
+    train_dir = path / "asl_alphabet_train" / "asl_alphabet_train"
+    return train_dir
+
+# Initialize MediaPipe HandLandmarker (Tasks API - Image Mode)
+base_options = python.BaseOptions(model_asset_path=str(MODEL_PATH))
+options = vision.HandLandmarkerOptions(
+    base_options=base_options,
+    num_hands=1,
+    min_hand_detection_confidence=0.7,
+    min_hand_presence_confidence=0.5,
+    min_tracking_confidence=0.5,
+    running_mode=vision.RunningMode.IMAGE,
+)
+detector = vision.HandLandmarker.create_from_options(options)
+
+def process_dataset():
+    # Ensure data directory exists
+    Path(OUTPUT_CSV).parent.mkdir(parents=True, exist_ok=True)
+    
+    train_dir = get_dataset_path()
+    if not train_dir.exists():
+        print(f"Error: Dataset directory not found at {train_dir}")
+        return
+
+    print(f"Dataset location: {train_dir}")
+    print(f"Processing up to {LIMIT_PER_SIGN} images per sign.")
+
+    with open(OUTPUT_CSV, 'w', newline='') as f: # Start fresh for new dataset
+        writer = csv.writer(f)
+        # Header - if needed (standard in this project seems to be no header or specific columns)
+        # columns = ["label"] + [f"{d}{i}" for i in range(21) for d in ["x", "y", "z"]]
+        # writer.writerow(columns)
+
+        for label in TARGET_SIGNS:
+            folder_path = train_dir / label
+            if not folder_path.exists():
+                print(f"Warning: Folder for {label} not found at {folder_path}. Skipping.")
+                continue
+
+            print(f"Processing folder: {label}")
+            
+            # Get list of images
+            image_files = [img for img in os.listdir(folder_path) if img.lower().endswith(('.png', '.jpg', '.jpeg'))]
+            # Limit images
+            image_files = image_files[:LIMIT_PER_SIGN]
+            
+            count = 0
+            for img_name in image_files:
+                img_path = folder_path / img_name
+                
+                try:
+                    frame = cv2.imread(str(img_path))
+                    if frame is None: continue
+
+                    # MediaPipe Processing (Tasks API - Image Mode)
+                    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
+                    
+                    # static image detection
+                    detection_result = detector.detect(mp_image)
+
+                    if detection_result.hand_landmarks:
+                        landmarks = []
+                        # Use the first hand detected
+                        for lm in detection_result.hand_landmarks[0]:
+                            landmarks.extend([lm.x, lm.y, lm.z])
+                        
+                        writer.writerow([label.lower()] + landmarks)
+                        count += 1
+                        
+                        if count % 100 == 0:
+                            print(f"  {label}: {count} landmarks collected...")
+                            f.flush()
+                except Exception as e:
+                    print(f"  Error processing {img_path}: {e}")
+            
+            print(f"Done with {label}. Total landmarks: {count}")
+
+if __name__ == "__main__":
+    process_dataset()
