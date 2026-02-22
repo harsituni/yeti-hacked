@@ -10,8 +10,8 @@ import csv
 import numpy as np
 
 # --- PATHS ---
-OUTPUT_CSV = "asl-harsit/data/asl_data_auto.csv"
-MODEL_PATH = Path(__file__).parent / "models" / "hand_landmarker.task"
+OUTPUT_CSV = Path(__file__).parent.parent / "data" / "asl_data_auto.csv"
+MODEL_PATH = Path(__file__).parent.parent / "models" / "hand_landmarker.task"
 
 # --- CONFIGURATION ---
 SEQUENCE_LENGTH = 30 # Number of frames per gesture sequence

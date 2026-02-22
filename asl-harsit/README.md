@@ -44,7 +44,7 @@ If you want the AI to learn your specific hand gestures:
 
 1. **Record your data:**
    ```bash
-   python data_collection.py
+   python collection/data_collection.py
    ```
    - Press **'l'** to save a static letter.
    - Press **'s'** to record a 1-second motion (for words).
@@ -59,9 +59,10 @@ If you want the AI to learn your specific hand gestures:
 ## 📂 Project Structure
 
 - `inference_pi.py`: The main live application.
-- `data_collection.py`: The personalization tool for recording your own signs.
 - `train_model.py`: The training engine that generates the AI's "brain."
-- `automated_collector.py`: Processes the massive ASL Alphabet and WLASL datasets.
+- `collection/`:
+    - `data_collection.py`: The personalization tool for recording your own signs.
+    - `automated_collector.py`: Processes the massive ASL Alphabet and WLASL datasets.
 - `models/`: Stores the trained `.keras` model and normalization artifacts.
 
 ## 📈 Performance

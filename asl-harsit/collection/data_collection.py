@@ -10,8 +10,8 @@ from mediapipe.tasks.python import vision
 
 # --- CONFIGURATION ---
 SEQUENCE_LENGTH = 30
-MODEL_PATH = Path(__file__).parent / "models" / "hand_landmarker.task"
-OUTPUT_CSV = Path(__file__).parent / "data" / "asl_data_auto.csv"
+MODEL_PATH = Path(__file__).parent.parent / "models" / "hand_landmarker.task"
+OUTPUT_CSV = Path(__file__).parent.parent / "data" / "asl_data_auto.csv"
 
 def normalize_landmarks(landmarks_list):
     """Makes landmarks relative to the wrist (index 0) and scales them."""
