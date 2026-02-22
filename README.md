@@ -28,7 +28,7 @@ cd yeti-hacked
 sudo apt update && sudo apt install -y libgl1-mesa-glx libglib2.0-0 libespeak-ng1
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 **🍎 macOS**
@@ -37,7 +37,7 @@ git clone https://github.com/harsituni/yeti-hacked.git
 cd yeti-hacked
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 **🪟 Windows**
@@ -109,5 +109,6 @@ SignBridge/ (Root)
 *   **Python Version?** SignBridge loves Python **3.10 or 3.11**.
 
 ---
+
 
 *SignBridge: Built for developers, designed for people.* 🌉✨
